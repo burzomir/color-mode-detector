@@ -1,32 +1,73 @@
 {
-  "private": true,
-  "workspaces": [
-    "packages/*"
+  "name": "@burzomir/color-mode-detector",
+  "version": "1.0.0",
+  "browser": "dist/index.js",
+  "source": "src/index.ts",
+  "types": "dist/types.d.ts",
+  "author": "Michał Kłobukowski",
+  "license": "MIT",
+  "description": "A lightweight JavaScript/TypeScript library for detecting and managing color modes (light/dark) in web applications. Simple to use, with an intuitive API for subscribing to color mode changes and customizing user interfaces accordingly.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/burzomir/color-mode-detector.git"
+  },
+  "bugs": {
+    "url": "https://github.com/burzomir/color-mode-detector/issues"
+  },
+  "keywords": [
+    "color-mode",
+    "color-scheme",
+    "dark-mode",
+    "light-mode",
+    "theme",
+    "color-theme",
+    "theme-detector",
+    "dark-theme",
+    "light-theme",
+    "color-mode-detection",
+    "color-scheme-detection",
+    "responsive-design",
+    "javascript",
+    "typescript",
+    "web-development",
+    "frontend",
+    "UI",
+    "user-preferences",
+    "custom-themes",
+    "css",
+    "web-apps"
   ],
   "scripts": {
-    "test": "jest",
-    "prepare": "husky",
-    "build": "npm run cleanup:dist && npm run build --workspaces",
-    "cleanup:dist": "rm -rf .parcel-cache && rm -rf ./packages/*/dist",
-    "cleanup:node": "rm -rf node_modules && rm -rf ./packages/*/node_modules"
+    "watch": "rm -rf ./.parcel-cache && parcel watch",
+    "build": "rm -rf ./.parcel-cache && rm -rf ./dist && parcel build",
+    "lint": "eslint",
+    "format": "prettier . --write",
+    "test": "jest"
   },
   "devDependencies": {
-    "@parcel/packager-ts": "^2.12.0",
-    "@parcel/transformer-typescript-types": "^2.12.0",
+    "@eslint/js": "^9.9.0",
+    "@types/jest": "^29.5.12",
+    "eslint": "^9.9.0",
+    "eslint-config-prettier": "^9.1.0",
+    "globals": "^15.9.0",
     "husky": "^9.1.4",
     "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "lint-staged": "^15.2.9",
-    "process": "^0.11.10",
-    "typescript": "^5.5.4"
+    "parcel": "^2.12.0",
+    "prettier": "^3.3.3",
+    "ts-jest": "^29.2.4",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.1.0"
   },
   "lint-staged": {
     "src/**/*.ts": [
-      "npm run format --workspaces",
-      "npm run lint --workspaces"
+      "npm run format",
+      "npm run lint"
     ],
     "src/**/*.tsx": [
-      "npm run format --workspaces",
-      "npm run lint --workspaces"
+      "npm run format",
+      "npm run lint"
     ]
   }
 }

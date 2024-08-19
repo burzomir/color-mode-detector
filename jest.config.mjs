@@ -1,4 +1,7 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} **/
 export default {
-  projects: ["<rootDir>/packages/*"],
+  testEnvironment: "jsdom",
+  transform: {
+    "^.+.tsx?$": ["ts-jest", {}],
+  },
 };

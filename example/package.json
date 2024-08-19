@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "name": "example",
+  "version": "1.0.0",
+  "scripts": {
+    "watch": "parcel index.html",
+    "build": "rm -rf ./dist && parcel build index.html",
+    "lint": "eslint",
+    "format": "prettier . --write",
+    "test": "echo"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@burzomir/color-mode-detector": "^1.0.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.12.0",
+    "typescript": "^5.5.4"
+  }
+}

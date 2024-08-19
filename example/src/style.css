@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark {
+  color: white;
+  background-color: #333333;
+}
+
+.light {
+  color: #333333;
+  background-color: white;
+}
