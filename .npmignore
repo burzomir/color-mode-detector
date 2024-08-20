@@ -1,0 +1,8 @@
+.husky
+eslint.config.mjs
+jest.config.mjs
+tsconfig.json
+.prettierrc
+.parcel-cache/
+example/
+*.tgz

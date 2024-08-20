@@ -7,7 +7,6 @@ export interface ColorModeDetector {
   currentColorMode: ColorMode;
   subscribe(callback: (colorMode: ColorMode) => void): void;
   unsubscribe(callback: (colorMode: ColorMode) => void): void;
-  cleanup(): void;
 }
 
 export function init(colorMode = ColorMode.Dark): ColorModeDetector {
@@ -32,7 +31,6 @@ class ColorModeDetectorImpl implements ColorModeDetector {
     this.colorMode = colorMode;
     const query = `(prefers-color-scheme: ${colorMode})`;
     this.matcher = window.matchMedia(query);
-    this.matcher.addEventListener("change", this.changeListener);
   }
 
   private changeListener = () => {
@@ -45,11 +43,6 @@ class ColorModeDetectorImpl implements ColorModeDetector {
     return new ColorModeDetectorImpl(colorMode);
   }
 
-  cleanup() {
-    this.matcher.removeEventListener("change", this.changeListener);
-    this.subscribers.clear();
-  }
-
   get currentColorMode() {
     if (this.matcher.matches) {
       return this.colorMode;
@@ -59,10 +52,16 @@ class ColorModeDetectorImpl implements ColorModeDetector {
   }
 
   subscribe(callback: (colorMode: ColorMode) => void) {
+    if (this.subscribers.size === 0) {
+      this.matcher.addEventListener("change", this.changeListener);
+    }
     this.subscribers.add(callback);
   }
 
   unsubscribe(callback: (colorMode: ColorMode) => void) {
     this.subscribers.delete(callback);
+    if (this.subscribers.size === 0) {
+      this.matcher.removeEventListener("change", this.changeListener);
+    }
   }
 }

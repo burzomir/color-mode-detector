@@ -14,7 +14,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@burzomir/color-mode-detector": "^1.0.0"
+    "@burzomir/color-mode-detector": "file:../burzomir-color-mode-detector-2.0.0.tgz"
   },
   "devDependencies": {
     "parcel": "^2.12.0",

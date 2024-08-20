@@ -97,3 +97,16 @@ window.addEventListener("beforeunload", () => {
 If you run into any issues or have ideas for improvements, feel free to open an issue or submit a pull request on the [GitHub repository](https://github.com/burzomir/color-mode-detector).
 
 This library is designed to be simple and efficient – just like your code. If you need a reliable way to manage color modes, give it a try.
+
+## Change log
+
+- 2.0.0
+
+  - Removed cleanup method
+
+    Cleanup is handled automatically when all subscribers are removed
+
+- 1.0.1
+  - Project reorganization
+- 1.0.0
+  - Initial release

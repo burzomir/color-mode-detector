@@ -100,6 +100,7 @@ describe("ColorModeDetector", () => {
         addEventListener: jest.fn().mockImplementation((_, cb) => {
           callback = cb;
         }),
+        removeEventListener: jest.fn(),
       }));
       const detector = init(ColorMode.Dark);
       const subscriber = jest.fn();
@@ -109,37 +110,16 @@ describe("ColorModeDetector", () => {
       callback();
       expect(subscriber).toHaveBeenCalledTimes(1);
     });
-  });
 
-  describe("cleanup", () => {
-    it("stops notifying all subscribers about the current color change", () => {
+    it("removes event listener from matchMedia if there are no more subscribers", () => {
       let callback = () => {};
+      const removeEventListener = jest.fn();
       window.matchMedia = jest.fn().mockImplementation(() => ({
         matches: false,
         addEventListener: jest.fn().mockImplementation((_, cb) => {
           callback = cb;
         }),
-      }));
-      const detector = init(ColorMode.Dark);
-      const subscriber1 = jest.fn();
-      const subscriber2 = jest.fn();
-      detector.subscribe(subscriber1);
-      detector.subscribe(subscriber2);
-      callback();
-      detector.unsubscribe(subscriber1);
-      detector.unsubscribe(subscriber2);
-      callback();
-      expect(subscriber1).toHaveBeenCalledTimes(1);
-      expect(subscriber2).toHaveBeenCalledTimes(1);
-    });
-
-    it("stops listening to the change event", () => {
-      let callback = () => {};
-      window.matchMedia = jest.fn().mockImplementation(() => ({
-        matches: false,
-        addEventListener: jest.fn().mockImplementation((_, cb) => {
-          callback = cb;
-        }),
+        removeEventListener,
       }));
       const detector = init(ColorMode.Dark);
       const subscriber = jest.fn();
@@ -148,6 +128,25 @@ describe("ColorModeDetector", () => {
       detector.unsubscribe(subscriber);
       callback();
       expect(subscriber).toHaveBeenCalledTimes(1);
+      expect(removeEventListener).toHaveBeenCalledTimes(1);
+    });
+
+    it("adds event listener for matchMedia again", () => {
+      const addEventListener = jest.fn();
+      const removeEventListener = jest.fn();
+      window.matchMedia = jest.fn().mockImplementation(() => ({
+        matches: false,
+        addEventListener,
+        removeEventListener,
+      }));
+      const detector = init(ColorMode.Dark);
+      const subscriber = jest.fn();
+      detector.subscribe(subscriber);
+      detector.unsubscribe(subscriber);
+      detector.subscribe(subscriber);
+      detector.unsubscribe(subscriber);
+      expect(addEventListener).toHaveBeenCalledTimes(2);
+      expect(removeEventListener).toHaveBeenCalledTimes(2);
     });
   });
 });
